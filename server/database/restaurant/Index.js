@@ -38,4 +38,4 @@ const RestaurantSchema = new mongoose.Schema(
   }
 );
 
-export const UserModel = mongoose.model("Restaurants", RestaurantSchema);
+export const RestaurantModel = mongoose.model("Restaurants", RestaurantSchema);

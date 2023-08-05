@@ -1,6 +1,12 @@
+//  env variable
+// require ('dotenv').config();
+
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+
+// Database connection
+// import ConnectDB from "/database/connection";
 
 const zomato = express(); // Initialized
 
