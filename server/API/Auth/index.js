@@ -2,9 +2,10 @@ import express from "express";
 const Router = express.Router();
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+// import passport from "passport";
 // Models
 import { UserModel } from "../../database/user";
+// import { restart } from "nodemon";
 
 //                                         Designing
 /*
@@ -76,7 +77,10 @@ Router.post("/signin", async (req, res) => {
     }
 
     // JWT
-    const token = jwt.sign({ user: { fullname: user.fullname, email } }, "ZomatoApp");
+    const token = jwt.sign(
+      { user: { fullname: user.fullname, email } },
+      "ZomatoApp"
+    );
     // const token = jwt.sign({ user: { fullname: user.fullname, email } }, process.env.JWT_SECRET);
 
     return res.status(200).json({ token, status: "Success" });
@@ -85,5 +89,40 @@ Router.post("/signin", async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
+
+/*
+Route          /google
+Desc            Google Signin
+Params          None
+Access          Public
+Method          Get
+*/
+
+// Router.get(
+//   "/google",
+//   passport.authenticate("google", {
+//     scope: [
+//       "https://www.googleapis.com/auth/userinfo.profile",
+//       "https://www.googleapis.com/auth/userinfo.email",
+//     ],
+//   })
+// );
+
+// // Callback
+// /*
+// Route          /google/callback
+// Desc            Google Signin callback
+// Params          None
+// Access          Public
+// Method          Get
+// */
+
+// Router.get(
+//   "/google/callback",
+//   passport.authenticate("google", { failureRedirect: "/" }),
+//   (req, res) => {
+//     return res.json({ token: req.session.passport.user.token });
+//   }
+// );
 
 export default Router;
