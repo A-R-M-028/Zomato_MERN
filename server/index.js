@@ -4,7 +4,17 @@ import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import Auth from './API/Auth';
+
+// API
+import Auth from "./API/Auth";
+import Restaurant from "./API/Restaurant";
+import Food from "./API/Food";
+import Menu from "./API/Menu";
+import Image from "./API/Image";
+import Order from "./API/Order";
+import Review from "./API/Review";
+
+
 // import passport from "passport";
 
 // import passport from "passport";
@@ -36,7 +46,13 @@ zomato.use(cors());
 
 // For application routes
 // localhost:4000/auth/signup
-zomato.use('/auth', Auth);
+zomato.use("/auth", Auth);
+zomato.use("/restaurant", Restaurant);
+zomato.use("/restaurant", Food);
+zomato.use("/menu", Menu);
+zomato.use("/image", Image);
+zomato.use("/order", Order);
+zomato.use("/review", Review);
 
 zomato.get("/", (req, res) => {
   res.json({ message: "Setup Successfull!" });
