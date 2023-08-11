@@ -2,6 +2,9 @@ import express from "express";
 const Router = express.Router();
 import { OrderModel } from "../../database/allModels";
 
+// Authentication
+import passport from "passport";
+import { Jwt } from "jsonwebtoken";
 /*
 Route          /
 Desc            Get all Orders
@@ -10,7 +13,7 @@ Access          Public
 Method          Get
 */
 
-Router.get("/:_id", async (req, res) => {
+Router.get("/:_id", passport.authenticate("jwt, {session: false "), async (req, res) => {
   try {
     const { _id } = req.params;
     const getOrders = await OrderModel.findOne({ user: _id });

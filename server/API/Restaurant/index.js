@@ -2,6 +2,11 @@ import express from "express";
 const Router = express.Router();
 import { RestaurantModel } from "../../database/allModels";
 
+// Validation
+import { ValidateRestaurantId } from "../../validation/food";
+import { ValidateRestaurantCity, ValidateRestaurantSearchString } from "../../validation/restaurant";
+
+
 /*
 Route          /
 Desc            Get all the Restaurants details
@@ -12,6 +17,7 @@ Method          Get
 
 Router.get("/", async (req, res) => {
   try {
+    await ValidateRestaurantCity(req.query);
     const { city } = req.query;
     const Restaurants = await RestaurantModel.find({ city });
     return res.json({ Restaurants });
@@ -31,6 +37,7 @@ Method          Get
 Router.get("/:_id", async (req, res) => {
   try {
     // in mongodb _df -> Unique id
+    await ValidateRestaurantId(req.params);
     const { _id } = req.params;
     const restaurant = await RestaurantModel.findOne(_id);
 
@@ -54,6 +61,7 @@ Method          Get
 // Regex -> "xxxyyyzzz" -> yyy
 Router.get("/search", async (req, res) => {
   try {
+    await ValidateRestaurantSearchString(req.params);
     const { seachString } = req.body;
     const restaurants = await RestaurantModel.find({
       // options -> Not case sensetive

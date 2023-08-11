@@ -7,6 +7,9 @@ import jwt from "jsonwebtoken";
 import { UserModel } from "../../database/user";
 // import { restart } from "nodemon";
 
+// Validation
+import { ValidateSignup, ValidateSignin } from "../../validation/auth";
+
 //                                         Designing
 /*
 Route          /signup
@@ -19,6 +22,7 @@ Method          Post
 Router.post("/signup", async (req, res) => {
   // Use try and catch best practice
   try {
+    await ValidateSignup(req.body.credentials);
     const { email, password, fullname, phoneNumber } = req.body.credentials;
     // Check whether email or phoneNumber exists or not
     const checkUserByEmail = await UserModel.findOne({ email });
@@ -62,6 +66,7 @@ Method          Post
 Router.post("/signin", async (req, res) => {
   // Use try and catch best practice
   try {
+    await ValidateSignin(req.body.credentials);
     const { email, password } = req.body.credentials;
     // Check whether email or phoneNumber exists or not
     const user = await UserModel.findOne({ email });

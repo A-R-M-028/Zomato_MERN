@@ -30,7 +30,8 @@ Router.post("/", upload.single("file"), async (req, res) => {
       ACL: "public-read",
     };
 
-    const uploadImage = await s3Upload(bucketOptions);
+    // const uploadImage = 
+    await s3Upload(bucketOptions);
 
     // You can save `uploadImage` to MongoDB or perform other necessary tasks here
 

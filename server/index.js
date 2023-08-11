@@ -14,9 +14,11 @@ import Image from "./API/Image";
 import Order from "./API/Order";
 import Review from "./API/Review";
 
+// Config
+import routeConfig from "./config/routeConfig";
+import passport from "passport";
 
 // import passport from "passport";
-
 // import passport from "passport";
 // import googleAuthConfig from "./config/googleAuthConfig";
 // Database connection
@@ -38,9 +40,12 @@ zomato.use(express.json());
 zomato.use(express.urlencoded({ extended: false }));
 zomato.use(helmet());
 zomato.use(cors());
+
+// Route config
+routeConfig(passport); // Pass the passport instance to the routeConfig function
+zomato.use(passport.initialize()); // Initialize passport middleware
 // zomato.use(passport.initialize());
 // zomato.use(passport.session());
-
 // Passort Configuration
 // googleAuthConfig(passport);
 
